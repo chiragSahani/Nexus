@@ -7,10 +7,25 @@ import { CryptoCard } from "@/components/crypto/crypto-card"
 import { toggleFavoriteCrypto } from "@/lib/redux/slices/userPreferencesSlice"
 import type { RootState, AppDispatch } from "@/lib/redux/store"
 
-export function CryptoSection() {
+// Add these props to the component
+interface CryptoSectionProps {
+  searchTerm?: string
+  expanded?: boolean
+}
+
+export function CryptoSection({ searchTerm = "", expanded = false }: CryptoSectionProps) {
   const { data, loading, error } = useSelector((state: RootState) => state.crypto)
   const { favoriteCryptos } = useSelector((state: RootState) => state.userPreferences)
   const dispatch = useDispatch<AppDispatch>()
+
+  // Filter data based on search term
+  const filteredData = searchTerm
+    ? data.filter(
+        (crypto) =>
+          crypto.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          crypto.symbol.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+    : data
 
   const handleToggleFavorite = (cryptoId: string) => {
     dispatch(toggleFavoriteCrypto(cryptoId))
@@ -57,8 +72,8 @@ export function CryptoSection() {
         <CardDescription>Live prices and market data</CardDescription>
       </CardHeader>
       <CardContent className="p-4">
-        <div className="space-y-4">
-          {data.map((crypto, index) => (
+        <div className={`space-y-4 ${expanded ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : ""}`}>
+          {filteredData.map((crypto, index) => (
             <motion.div
               key={crypto.id}
               initial={{ opacity: 0, y: 20 }}
