@@ -6,12 +6,14 @@ import Link from "next/link"
 import { ArrowLeft, Cloud, Droplets, MapPin, Star, Thermometer, Wind } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { WeatherChart } from "@/components/weather/weather-chart"
 import { WeatherTable } from "@/components/weather/weather-table"
 import { fetchCityWeatherDetails } from "@/lib/redux/slices/weatherDetailsSlice"
 import { toggleFavoriteCity } from "@/lib/redux/slices/userPreferencesSlice"
 import { getWeatherIconFromCode } from "@/lib/utils"
 import type { RootState, AppDispatch } from "@/lib/redux/store"
+
+// Import the new advanced weather chart component
+import { AdvancedWeatherChart } from "@/components/weather/advanced-weather-chart"
 
 interface CityDetailsProps {
   cityName: string
@@ -161,8 +163,9 @@ export function CityDetails({ cityName }: CityDetailsProps) {
           <CardDescription>Temperature trends for the past week</CardDescription>
         </CardHeader>
         <CardContent>
+          {/* Replace the current chart component with the advanced one */}
           <div className="h-80">
-            <WeatherChart data={data.historical} />
+            <AdvancedWeatherChart data={data.historical} forecast={data.forecast} />
           </div>
         </CardContent>
       </Card>
