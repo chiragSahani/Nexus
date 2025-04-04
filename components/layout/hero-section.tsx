@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function HeroSection() {
   const { theme } = useTheme()
@@ -60,9 +61,11 @@ export function HeroSection() {
                 Explore Dashboard
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button size="lg" variant="outline">
-                Learn More
-              </Button>
+              <Link href="/learn">
+                <Button size="lg" variant="outline">
+                  Learn More
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
