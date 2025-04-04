@@ -73,10 +73,30 @@ const userPreferencesSlice = createSlice({
     importUserPreferences: (state, action: PayloadAction<UserPreferencesState>) => {
       return { ...state, ...action.payload }
     },
+    reorderFavorites: (
+      state,
+      action: PayloadAction<{
+        type: "cities" | "crypto"
+        items: string[]
+      }>,
+    ) => {
+      const { type, items } = action.payload
+
+      if (type === "cities") {
+        state.favoriteCities = items
+      } else {
+        state.favoriteCryptos = items
+      }
+
+      // Save to localStorage if available
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userPreferences", JSON.stringify(state))
+      }
+    },
   },
 })
 
-export const { toggleFavoriteCity, toggleFavoriteCrypto, setTheme, importUserPreferences } =
+export const { toggleFavoriteCity, toggleFavoriteCrypto, setTheme, importUserPreferences, reorderFavorites } =
   userPreferencesSlice.actions
 
 export default userPreferencesSlice.reducer
