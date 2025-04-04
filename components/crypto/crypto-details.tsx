@@ -6,12 +6,13 @@ import Link from "next/link"
 import { ArrowDown, ArrowLeft, ArrowUp, DollarSign, Star } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CryptoChart } from "@/components/crypto/crypto-chart"
 import { CryptoMetrics } from "@/components/crypto/crypto-metrics"
 import { fetchCryptoDetails } from "@/lib/redux/slices/cryptoDetailsSlice"
 import { toggleFavoriteCrypto } from "@/lib/redux/slices/userPreferencesSlice"
 import { formatNumber } from "@/lib/utils"
 import type { RootState, AppDispatch } from "@/lib/redux/store"
+// Import the new advanced crypto chart component
+import { AdvancedCryptoChart } from "@/components/crypto/advanced-crypto-chart"
 
 interface CryptoDetailsProps {
   cryptoId: string
@@ -178,8 +179,9 @@ export function CryptoDetails({ cryptoId }: CryptoDetailsProps) {
           <CardDescription>Historical price data for {data.name}</CardDescription>
         </CardHeader>
         <CardContent>
+          {/* Replace the current chart component with the advanced one */}
           <div className="h-80">
-            <CryptoChart data={data.priceHistory} />
+            <AdvancedCryptoChart data={data.priceHistory} fullData={data} />
           </div>
         </CardContent>
       </Card>
