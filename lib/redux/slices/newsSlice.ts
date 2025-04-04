@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import type { NewsData } from "@/lib/types"
 
-// API Key for News API
+// ✅ API Key for NewsData.io
 const NEWS_API_KEY = "pub_7744796b2057b0f5e17d13fddf55c8417b4b7"
 
-// Fetch news data from News API
+// ✅ Async Thunk to fetch news data
 export const fetchNewsData = createAsyncThunk("news/fetchNewsData", async () => {
   try {
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?category=business&apiKey=${NEWS_API_KEY}`
+      `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&category=business&country=us`
     )
 
     if (!response.ok) {
@@ -17,18 +17,18 @@ export const fetchNewsData = createAsyncThunk("news/fetchNewsData", async () => 
 
     const data = await response.json()
 
-    if (!data.articles) {
+    if (!data.results || !Array.isArray(data.results)) {
       throw new Error("No articles found in the response")
     }
 
-    return data.articles.map((article: any) => ({
-      id: article.url, // Use URL as a unique identifier
+    return data.results.map((article: any) => ({
+      id: article.link, // Using article link as a unique identifier
       title: article.title,
-      url: article.url,
-      source: article.source.name,
-      publishedAt: article.publishedAt,
+      url: article.link,
+      source: article.source_id,
+      publishedAt: article.pubDate,
       description: article.description,
-      imageUrl: article.urlToImage,
+      imageUrl: article.image_url,
     })) as NewsData[]
   } catch (error) {
     console.error("Error fetching news data:", error)
@@ -36,26 +36,27 @@ export const fetchNewsData = createAsyncThunk("news/fetchNewsData", async () => 
   }
 })
 
+// ✅ State Type Interface
 interface NewsState {
   data: NewsData[]
   loading: boolean
   error: string | null
 }
 
+// ✅ Initial State
 const initialState: NewsState = {
-  data: [], // Initialize with empty data
+  data: [],
   loading: false,
   error: null,
 }
 
+// ✅ Slice Definition
 const newsSlice = createSlice({
   name: "news",
   initialState,
   reducers: {
     addNewsItem: (state, action) => {
       state.data.unshift(action.payload)
-
-      // Keep the list at a reasonable size
       if (state.data.length > 20) {
         state.data = state.data.slice(0, 20)
       }
@@ -78,6 +79,6 @@ const newsSlice = createSlice({
   },
 })
 
+// ✅ Export Actions and Reducer
 export const { addNewsItem } = newsSlice.actions
-
 export default newsSlice.reducer

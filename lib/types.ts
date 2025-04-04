@@ -84,9 +84,10 @@ export interface NewsData {
   url: string
   source: string
   publishedAt: string
-  description?: string
-  imageUrl?: string
+  description: string
+  imageUrl: string
 }
+
 
 // WebSocket Types
 export interface WebSocketMessage {
