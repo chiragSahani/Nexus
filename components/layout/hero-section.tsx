@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function HeroSection() {
   const { theme } = useTheme()
@@ -25,7 +26,11 @@ export function HeroSection() {
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="grid gap-6 md:grid-cols-2 md:gap-10">
           <div className="flex flex-col justify-center space-y-4">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">
                 <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                   CryptoWeather
@@ -44,13 +49,12 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-col gap-4 sm:flex-row"
             >
-              <Button size="lg" className="group">
-                Explore Dashboard
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button size="lg" variant="outline">
-                Learn More
-              </Button>
+              <Link href="#dashboard-section" scroll={true}>
+                <Button size="lg" className="group">
+                  Explore Dashboard
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
@@ -63,7 +67,9 @@ export function HeroSection() {
             <div className="relative aspect-square w-full max-w-[500px]">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
-                  className={`h-64 w-64 rounded-full bg-primary/20 blur-3xl ${theme === "dark" ? "opacity-30" : "opacity-70"}`}
+                  className={`h-64 w-64 rounded-full bg-primary/20 blur-3xl ${
+                    theme === "dark" ? "opacity-30" : "opacity-70"
+                  }`}
                 />
               </div>
               <div className="relative z-10 grid h-full w-full place-items-center">
@@ -93,4 +99,3 @@ export function HeroSection() {
     </div>
   )
 }
-

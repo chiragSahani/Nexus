@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <main className="flex flex-col">
       <HeroSection />
-      <div className="container mx-auto px-4 py-8 md:px-6">
+      <div id="dashboard-section" className="container mx-auto px-4 py-8 md:px-6">
         <Suspense fallback={<DashboardSkeleton />}>
           <Dashboard />
         </Suspense>
@@ -21,4 +21,3 @@ export default function HomePage() {
     </main>
   )
 }
-
