@@ -247,12 +247,12 @@ export function AdvancedWeatherChart({ data, forecast, height = 350 }: AdvancedW
 
   return (
     <div className="flex h-full flex-col space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 overflow-x-auto pb-2">
+        <div className="flex flex-nowrap gap-2 overflow-x-auto pb-1">
           <Button
             size="sm"
             variant={chartType === "temperature" ? "default" : "outline"}
-            className="text-xs h-7"
+            className="text-xs h-7 min-w-max"
             onClick={() => setChartType("temperature")}
           >
             <Thermometer className="mr-1 h-3 w-3" />
@@ -264,7 +264,7 @@ export function AdvancedWeatherChart({ data, forecast, height = 350 }: AdvancedW
               <Button
                 size="sm"
                 variant={chartType === "humidity" ? "default" : "outline"}
-                className="text-xs h-7"
+                className="text-xs h-7 min-w-max"
                 onClick={() => setChartType("humidity")}
               >
                 <Droplets className="mr-1 h-3 w-3" />
@@ -274,7 +274,7 @@ export function AdvancedWeatherChart({ data, forecast, height = 350 }: AdvancedW
               <Button
                 size="sm"
                 variant={chartType === "combined" ? "default" : "outline"}
-                className="text-xs h-7"
+                className="text-xs h-7 min-w-max"
                 onClick={() => setChartType("combined")}
               >
                 <Cloud className="mr-1 h-3 w-3" />
@@ -285,13 +285,18 @@ export function AdvancedWeatherChart({ data, forecast, height = 350 }: AdvancedW
         </div>
 
         {forecast && (
-          <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => setShowForecast(!showForecast)}>
+          <Button
+            size="sm"
+            variant="outline"
+            className="text-xs h-7 min-w-max"
+            onClick={() => setShowForecast(!showForecast)}
+          >
             {showForecast ? "Hide Forecast" : "Show Forecast"}
           </Button>
         )}
       </div>
 
-      <div className="relative flex-1" style={{ minHeight: height }}>
+      <div className="relative w-full" style={{ height: height, minHeight: "250px", maxHeight: "80vh" }}>
         <ResponsiveContainer width="100%" height="100%">
           {renderChart()}
         </ResponsiveContainer>

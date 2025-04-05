@@ -162,9 +162,9 @@ export function CityDetails({ cityName }: CityDetailsProps) {
           <CardTitle>Historical Data</CardTitle>
           <CardDescription>Temperature trends for the past week</CardDescription>
         </CardHeader>
-        <CardContent>
-          {/* Replace the current chart component with the advanced one */}
-          <div className="h-80">
+        <CardContent className="px-2 sm:px-6">
+          {/* Adjust the height based on screen size */}
+          <div className="w-full" style={{ height: "min(70vh, 500px)" }}>
             <AdvancedWeatherChart data={data.historical} forecast={data.forecast} />
           </div>
         </CardContent>

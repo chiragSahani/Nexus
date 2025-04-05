@@ -190,8 +190,8 @@ export function AdvancedCryptoChart({ data, fullData, height = 350 }: AdvancedCr
 
   return (
     <div className="flex h-full flex-col space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="flex space-x-2">
+      <div className="flex items-center justify-between overflow-x-auto pb-2">
+        <div className="flex space-x-2 min-w-max">
           {["1d", "1w", "1m", "3m", "1y", "all"].map((range) => (
             <Button
               key={range}
@@ -207,7 +207,7 @@ export function AdvancedCryptoChart({ data, fullData, height = 350 }: AdvancedCr
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="text-xs">
+            <Button variant="outline" size="sm" className="text-xs ml-2 min-w-max">
               {chartType.toUpperCase()} <ChevronDown className="ml-1 h-3 w-3" />
             </Button>
           </DropdownMenuTrigger>
@@ -219,7 +219,7 @@ export function AdvancedCryptoChart({ data, fullData, height = 350 }: AdvancedCr
         </DropdownMenu>
       </div>
 
-      <div className="relative flex-1" style={{ minHeight: height }}>
+      <div className="relative w-full" style={{ height: height, minHeight: "250px", maxHeight: "80vh" }}>
         <AnimatePresence mode="wait">
           {isLoading ? (
             <motion.div

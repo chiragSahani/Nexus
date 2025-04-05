@@ -178,9 +178,9 @@ export function CryptoDetails({ cryptoId }: CryptoDetailsProps) {
           <CardTitle>Price History</CardTitle>
           <CardDescription>Historical price data for {data.name}</CardDescription>
         </CardHeader>
-        <CardContent>
-          {/* Replace the current chart component with the advanced one */}
-          <div className="h-80">
+        <CardContent className="px-2 sm:px-6">
+          {/* Adjust the height based on screen size */}
+          <div className="w-full" style={{ height: "min(70vh, 500px)" }}>
             <AdvancedCryptoChart data={data.priceHistory} fullData={data} />
           </div>
         </CardContent>

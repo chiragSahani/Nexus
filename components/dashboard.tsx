@@ -103,13 +103,13 @@ export function Dashboard() {
 
           <TabsContent value="all" className="m-0">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <motion.div variants={item} className="lg:col-span-1">
+              <motion.div variants={item} className="lg:col-span-1 w-full overflow-hidden">
                 <WeatherSection searchTerm={searchTerm} />
               </motion.div>
-              <motion.div variants={item} className="lg:col-span-1">
+              <motion.div variants={item} className="lg:col-span-1 w-full overflow-hidden">
                 <CryptoSection searchTerm={searchTerm} />
               </motion.div>
-              <motion.div variants={item} className="lg:col-span-1">
+              <motion.div variants={item} className="lg:col-span-1 w-full overflow-hidden">
                 <NewsSection searchTerm={searchTerm} />
               </motion.div>
             </div>
